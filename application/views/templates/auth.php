@@ -30,7 +30,8 @@
 </head>
 
 
-<body style="background-image: url('<?= base_url('assets/img/L.JPEG'); ?>'); background-size: cover;">
+<body style="background-color: black;">
+
 
     <div class="container">
         <?= $contents; ?>
@@ -46,4 +47,5 @@
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url(); ?>assets/js/sb-admin-2.min.js"></script>
 
+    
 </body>

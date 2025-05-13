@@ -8,16 +8,6 @@
                 </h4>
             </div>
             <div class="col-auto">
-                <a href="<?= base_url('barang') ?>" class="btn btn-sm btn-success btn-icon-split">
-                    <span class="icon">
-                        <i class="fas fa-chevron-left"></i>
-                    </span>
-                    <span class="text">
-                        Kembali Ke BTTD
-                    </span>
-                </a>
-            </div>
-            <div class="col-auto">
                 <a href="<?= base_url('user/add') ?>" class="btn btn-sm btn-primary btn-icon-split">
                     <span class="icon">
                         <i class="fa fa-user-plus"></i>
@@ -37,10 +27,10 @@
                     <th>Foto</th>
                     <th>Username</th>
                     <th>Nama Perusahaan</th>
-                    <th>Nama PIC</th>
-                    <th>Alamat Perusahaan</th>
-                    <th>Email Perusahaan</th>
-                    <th>No. telp Perusahaan</th>
+                    <th>Nama </th>
+                    <th>Alamat</th>
+                    <th>Email </th>
+                    <th>No. telp </th>
                     <th>No. Whatsapp PIC</th>
                     <th>Role</th>
                     <th>Aksi</th>
@@ -81,3 +71,5 @@
         </table>
     </div>
 </div>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

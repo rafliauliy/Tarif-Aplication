@@ -12,9 +12,9 @@ class Admin_model extends CI_Model
         }
     }
 
-    public function update($table, $pk, $id, $data)
+    public function update($table, $column, $id, $data)
     {
-        $this->db->where($pk, $id);
+        $this->db->where($column, $id);
         return $this->db->update($table, $data);
     }
 
@@ -25,26 +25,18 @@ class Admin_model extends CI_Model
 
     public function getUsers($id)
     {
-        /**
-         * ID disini adalah untuk data yang tidak ingin ditampilkan. 
-         * Maksud saya disini adalah 
-         * tidak ingin menampilkan data user yang digunakan, 
-         * pada managemen data user
-         */
         $this->db->where('id_user !=', $id);
         return $this->db->get('user')->result_array();
     }
 
-    public function getAllBarang()
+    public function getAllPurchase()
     {
-        // Tidak ada filter di sini, ambil semua data
-        return $this->db->get('barang')->result_array();
+        return $this->db->get('purchase_request')->result_array();
     }
 
-    public function getBarangByUserId($userId)
+    public function getPurchaseByUserId($userId)
     {
-        // Pastikan nama kolom sesuai dengan skema tabel Anda
-        return $this->db->get_where('barang', ['id_user' => $userId])->result_array();
+        return $this->db->get_where('purchase_request', ['id_user' => $userId])->result_array();
     }
 
     public function getMax($table, $field, $kode = null)
@@ -66,34 +58,39 @@ class Admin_model extends CI_Model
         return $this->db->delete($table, [$pk => $id]);
     }
 
-    public function getBarangById($id)
+    public function getPurchaseById($id)
     {
-        // Assuming 'barang' is your table name
-        $query = $this->db->get_where('barang', array('id_vendor' => $id));
+        $query = $this->db->get_where('purchase_request', array('id_purchase' => $id));
         return $query->row_array();
     }
-    public function printData($id_vendor)
-    {
-        // Implement logic to fetch data for the specified $id_vendor
-        $data['barang'] = $this->admin_model->getDataById($id_vendor);
 
-        // Load a view to display the data
-        $this->load->view('barang/print_data_view', $data);
-    }
-    public function getDataById($id_vendor)
+
+
+    public function get_purchase_request($id_purchase)
     {
-        // Assuming you have a table named 'barang' in your database
-        $query = $this->db->get_where('barang', array('id_vendor' => $id_vendor));
-        // Check if data is found
+        return $this->db->get_where('purchase_request', ['id_purchase' => $id_purchase])->row_array();
+    }
+
+    public function get_purchase_items($id_purchase)
+    {
+        return $this->db->get_where('purchase_items', ['id_purchase' => $id_purchase])->result_array();
+    }
+
+
+
+    public function getDataById($id_purchase)
+    {
+        $query = $this->db->get_where('purchase_request', array('id_purchase' => $id_purchase));
         if ($query->num_rows() > 0) {
             return $query->row();
         } else {
-            return null; // or handle the case where no data is found
+            return null;
         }
     }
-    public function get_barang_by_id_vendor($id_vendor)
+
+    public function get_purchase_by_id_vendor($id_purchase)
     {
-        return $this->db->get_where('barang', array('id_vendor' => $id_vendor))->result_array();
+        return $this->db->get_where('purchase_request', array('id_purchase' => $id_purchase))->result_array();
     }
 
     public function getUserById($id_user)
@@ -105,21 +102,69 @@ class Admin_model extends CI_Model
 
     public function updateUser($id_user, $data)
     {
+
         $this->db->where('id_user', $id_user);
         return $this->db->update('user', $data);
     }
+
+
     public function getAllData()
     {
-        // Ambil data dari database
-        $query = $this->db->get('barang');
+        $query = $this->db->get('purchase_request');
         return $query->result_array();
     }
 
-    public function hitungDataBelumDiproses()
+    // Method save_purchase_item untuk menyimpan data item pembelian
+    public function save_purchase_item($data)
     {
-        // Query untuk menghitung total data yang belum diproses
-        $this->db->where('tgl_diterima', NULL); // Ubah kondisi sesuai kebutuhan Anda
-        $this->db->from('barang');
-        return $this->db->count_all_results();
+        $this->db->insert('purchase_items', $data);
+        return $this->db->insert_id();
+    }
+
+    public function get_approval_options()
+    {
+        return $this->db->get('approval')->result_array();
+    }
+
+    public function getApprovalOptions()
+    {
+        return $this->db->select('name, position')->get('approval')->result_array();
+    }
+
+    public function update_purchase_item($data)
+    {
+        $this->db->where('id_items', $data['id_items']);
+        return $this->db->update('purchase_items', $data);
+    }
+    public function get_last_pr_number()
+    {
+        $this->db->select('number_pr');
+        $this->db->order_by('id_purchase', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get('purchase_request');
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->number_pr;
+        } else {
+            return 'PR000000'; // Jika tidak ada nomor PR sebelumnya, kembalikan nilai default
+        }
+    }
+
+    // Fungsi untuk menghasilkan nomor PR berikutnya
+    public function generate_next_pr_number()
+    {
+        $last_pr_number = $this->get_last_pr_number();
+        // Dapatkan angka dari nomor PR terakhir
+        $last_pr_number_numeric = (int)substr($last_pr_number, 2);
+        // Tambahkan 1 untuk mendapatkan nomor PR berikutnya
+        $next_pr_number_numeric = $last_pr_number_numeric + 1;
+        // Format nomor PR berikutnya
+        $next_pr_number = 'PR' . str_pad($next_pr_number_numeric, 6, '0', STR_PAD_LEFT);
+        return $next_pr_number;
+    }
+    public function get_purchase_data_by_id($id)
+    {
+        $query = $this->db->get_where('purchase_request', array('id' => $id));
+        return $query->row();
     }
 }

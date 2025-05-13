@@ -1,53 +1,55 @@
-<div class="row">
-    <?php if (is_admin()) : ?>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <a class="nav-link pb-0" href="<?= base_url('barang'); ?>">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Data Vendor</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $barang; ?></div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-folder fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
 
-        <div class="col-xl-3 col-md-6 mb-4">
-            <a class="nav-link" href="<?= base_url('user'); ?>">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total User</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $user; ?></div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-user-plus fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-    <?php endif; ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SB Admin Illustration Card</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    <!-- New section for welcome message and image -->
-    <div class="col-xl-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="text-center">
-                    <!-- Adjusted image size -->
-                    <img src="<?= base_url('assets/img/KAL.png') ?>" alt="Logo Perusahaan" style="width: 220px; height: auto; margin-bottom: 10px;">
-                    <!-- Adjusted heading size -->
-                    <h4 class="text-gray-800" style="margin-top: 10px; font-size: 1.25rem;">Selamat Datang di Aplikasi BTTD Online PT Krakatau Argo Logistics</h4>
+        .card-img-top {
+            width: 220px;
+            height: auto;
+            margin: 20px;
+            display: block;
+        }
+
+        .card-body {
+            text-align: center;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+        <div class="card">
+            <div class="card border-bottom-primary shadow h-100">
+                <div class="image-container">
+                    <img src="<?= base_url('assets/img/KAL.png') ?>" alt="Logo Perusahaan" class="card-img-top">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Tarif Web Application Krakatau Argo Logistics!</h5>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        <!-- Bootstrap JS and dependencies -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

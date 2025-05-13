@@ -53,8 +53,9 @@ $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'auth';
-$route['barang/print/(:any)'] = 'barang/printItem/$1';
-$route['barang/delete/(:num)'] = 'barang/delete/$1';
+$route['purchase/edit/(:any)'] = 'purchase/edit/$1';
+$route['purchase/print/(:any)'] = 'purchase/printItem/$1';
+$route['purchase/delete/(:num)'] = 'purchase/delete/$1';
 $route['logout'] = 'auth/logout';
 $route['register'] = 'auth/register';
 // Config: routes.php

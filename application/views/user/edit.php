@@ -22,7 +22,7 @@
             </div>
             <div class="card-body pb-2">
                 <?= $this->session->flashdata('pesan'); ?>
-                <?= form_open('', [], ['id_user' => $user['id_user']]); ?>
+                <?= form_open('user/update', [], ['id_user' => $user['id_user']]); ?>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="username">Username</label>
                     <div class="col-md-6">
@@ -32,6 +32,13 @@
                 </div>
                 <hr>
                 <div class="row form-group">
+                    <label class="col-md-4 text-md-right" for="nama_perusahaan">Nama Perusahaan</label>
+                    <div class="col-md-6">
+                        <input value="<?= set_value('nama_perusahaan', $user['nama_perusahaan']); ?>" type="text" id="nama_perusahaan" name="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan">
+                        <?= form_error('nama_perusahaan', '<span class="text-danger small">', '</span>'); ?>
+                    </div>
+                </div>
+                <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="nama">Nama</label>
                     <div class="col-md-6">
                         <input value="<?= set_value('nama', $user['nama']); ?>" type="text" id="nama" name="nama" class="form-control" placeholder="Nama">
@@ -39,7 +46,14 @@
                     </div>
                 </div>
                 <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="email">Email</label>
+                    <label class="col-md-4 text-md-right" for="alamat">Alamat</label>
+                    <div class="col-md-6">
+                        <input value="<?= set_value('alamat', $user['alamat']); ?>" type="text" id="alamat" name="alamat" class="form-control" placeholder="Alamat">
+                        <?= form_error('alamat', '<span class="text-danger small">', '</span>'); ?>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-4 text-md-right" for="email">Email </label>
                     <div class="col-md-6">
                         <input value="<?= set_value('email', $user['email']); ?>" type="text" id="email" name="email" class="form-control" placeholder="Email">
                         <?= form_error('email', '<span class="text-danger small">', '</span>'); ?>
@@ -53,6 +67,13 @@
                     </div>
                 </div>
                 <div class="row form-group">
+                    <label class="col-md-4 text-md-right" for="no_wa">Nomor WhatsApp</label>
+                    <div class="col-md-6">
+                        <input value="<?= set_value('no_wa', $user['no_wa']); ?>" type="text" id="no_wa" name="no_wa" class="form-control" placeholder="Nomor WhatsApp">
+                        <?= form_error('no_wa', '<span class="text-danger small">', '</span>'); ?>
+                    </div>
+                </div>
+                <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="role">Role</label>
                     <div class="col-md-6">
                         <div class="custom-control custom-radio">
@@ -60,8 +81,8 @@
                             <label class="custom-control-label" for="admin">Admin</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input <?= $user['role'] == 'vendor' ? 'checked' : ''; ?> <?= set_radio('role', 'vendor'); ?> value="vendor" type="radio" id="vendor" name="role" class="custom-control-input">
-                            <label class="custom-control-label" for="vendor">Vendor</label>
+                            <input <?= $user['role'] == 'employe' ? 'checked' : ''; ?> <?= set_radio('role', 'employe'); ?> value="employe" type="radio" id="employe" name="role" class="custom-control-input">
+                            <label class="custom-control-label" for="employe">Employe</label>
                         </div>
                         <?= form_error('role', '<span class="text-danger small">', '</span>'); ?>
                     </div>
@@ -81,3 +102,4 @@
         </div>
     </div>
 </div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

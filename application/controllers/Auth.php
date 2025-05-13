@@ -26,7 +26,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Login BTTD online';
+            $data['title'] = 'Login Tarif Online';
             $this->template->load('templates/auth', 'auth/login', $data);
         } else {
             $input = $this->input->post(null, true);
@@ -37,7 +37,7 @@ class Auth extends CI_Controller
                 if (password_verify($input['password'], $password)) {
                     $user_db = $this->auth->userdata($input['username']);
                     if ($user_db['is_active'] != 1) {
-                        set_pesan('akun anda belum aktif/dinonaktifkan. Silahkan hubungi admin.', false);
+                        set_pesan('youre account is not activated!. Please contact admin for youre account.', false);
                         redirect('login');
                     } else {
                         $userdata = [
@@ -46,14 +46,14 @@ class Auth extends CI_Controller
                             'timestamp' => time()
                         ];
                         $this->session->set_userdata('login_session', $userdata);
-                        redirect('barang');
+                        redirect('dashboard');
                     }
                 } else {
-                    set_pesan('password salah', false);
+                    set_pesan('unvalid password', false);
                     redirect('auth');
                 }
             } else {
-                set_pesan('username belum terdaftar', false);
+                set_pesan('username not registered', false);
                 redirect('auth');
             }
         }
@@ -63,7 +63,7 @@ class Auth extends CI_Controller
     {
         $this->session->unset_userdata('login_session');
 
-        set_pesan('anda telah berhasil logout');
+        set_pesan('Logout Succes!');
         redirect('auth');
     }
 
@@ -83,17 +83,17 @@ class Auth extends CI_Controller
             $input = $this->input->post(null, true);
             unset($input['password2']);
             $input['password']      = password_hash($input['password'], PASSWORD_DEFAULT);
-            $input['role']          = 'vendor';
+            $input['role']          = 'employe';
             $input['foto']          = 'user.png';
             $input['is_active']     = 0;
             $input['created_at']    = time();
 
             $query = $this->admin->insert('user', $input);
             if ($query) {
-                set_pesan('daftar berhasil. Selanjutnya silahkan hubungi admin untuk mengaktifkan akun anda.');
+                set_pesan('successful registration. Next please contact the admin to activate your account.');
                 redirect('login');
             } else {
-                set_pesan('gagal menyimpan ke database', false);
+                set_pesan('failed to save to the database', false);
                 redirect('register');
             }
         }

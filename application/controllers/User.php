@@ -24,16 +24,16 @@ class User extends CI_Controller
 
     private function _validasi($mode)
     {
-        $this->form_validation->set_rules('nama_perusahaan', 'Nama Perusahaan', '');
-        $this->form_validation->set_rules('nama', 'Nama', '');
-        $this->form_validation->set_rules('alamat', 'Alamat', '');
-        $this->form_validation->set_rules('no_telp', 'Nomor Telepon', '');
-        $this->form_validation->set_rules('no_wa', 'Nomor Wathsapp', '');
+        $this->form_validation->set_rules('nama_perusahaan', 'Nama Perusahaan', 'trim');
+        $this->form_validation->set_rules('nama', 'Nama', 'trim');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'trim');
+        $this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'trim');
+        $this->form_validation->set_rules('no_wa', 'Nomor WhatsApp', 'trim');
         $this->form_validation->set_rules('role', 'Role', 'required|trim');
 
         if ($mode == 'add') {
             $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]|alpha_numeric');
-            $this->form_validation->set_rules('email', 'Email', '|trim|valid_email|is_unique[user.email]');
+            $this->form_validation->set_rules('email', 'Email', 'trim|is_unique[user.email]');
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[3]|trim');
             $this->form_validation->set_rules('password2', 'Konfirmasi Password', 'matches[password]|trim');
         } else {
@@ -48,7 +48,7 @@ class User extends CI_Controller
                 $uniq_email = ($db['email'] == $email) ? '' : '|is_unique[user.email]';
 
                 $this->form_validation->set_rules('username', 'Username', 'required|trim|alpha_numeric' . $uniq_username);
-                $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $uniq_email);
+                $this->form_validation->set_rules('email', 'Email', 'trim' . $uniq_email);
             } else {
                 set_pesan('Data pengguna tidak ditemukan.', false);
                 redirect('user');
@@ -67,12 +67,12 @@ class User extends CI_Controller
             $input = $this->input->post(null, true);
             $input_data = [
                 'username'      => $input['username'],
-                'nama_perusahaan'          => $input['nama_perusahaan'],
+                'nama_perusahaan' => $input['nama_perusahaan'],
                 'nama'          => $input['nama'],
-                'alamat'          => $input['alamat'],
+                'alamat'        => $input['alamat'],
                 'email'         => $input['email'],
                 'no_telp'       => $input['no_telp'],
-                'no_wa'       => $input['no_wa'],
+                'no_wa'         => $input['no_wa'],
                 'role'          => $input['role'],
                 'password'      => password_hash($input['password'], PASSWORD_DEFAULT),
                 'created_at'    => time(),
@@ -89,54 +89,65 @@ class User extends CI_Controller
         }
     }
 
+
+
     public function edit($id_user)
     {
-        // Retrieve user data from database based on ID
-        $data['user'] = $this->admin->getUserById($id_user); // Menggunakan model yang telah dimuat dengan nama 'admin'
+    // Retrieve user data from database based on ID
+    $data['user'] = $this->admin->getUserById($id_user);
 
-        if (!$data['user']) {
-            // Handle if user not found
-            // You can redirect to a 404 page or show an error message
-            show_404();
-        }
+    if (!$data['user']) {
+        // Handle if user not found
+        show_404();
+    }
 
-        // Set the title
-        $data['title'] = 'Edit User';
+    // Set the title
+    $data['title'] = 'Edit User';
 
-        // Load view from 'views/user/edit.php' and pass the data
-
-        $this->template->load('templates/dashboard', 'user/edit', $data);
+    // Load view from 'views/user/edit.php' and pass the data
+    $this->template->load('templates/dashboard', 'user/edit', $data);
     }
 
 
 
     public function update()
     {
-        // Form validation rules
-        $this->form_validation->set_rules('id_user', 'User ID', 'required');
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-        $this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'required');
-        $this->form_validation->set_rules('role', 'Role', 'required');
+    // Form validation rules
+    $this->form_validation->set_rules('id_user', 'User ID', 'required');
+    $this->form_validation->set_rules('username', 'Username', 'required');
+    $this->form_validation->set_rules('nama', 'Nama', 'required');
+    $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+    $this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'required');
+    $this->form_validation->set_rules('no_wa', 'Nomor WhatsApp', 'required');
+    $this->form_validation->set_rules('role', 'Role', 'required');
 
-        if ($this->form_validation->run() == FALSE) {
-            // If validation fails, reload the edit form with validation errors
-            $this->edit($this->input->post('id_user'));
+    if ($this->form_validation->run() == FALSE) {
+        // If validation fails, reload the edit form with validation errors
+        $this->edit($this->input->post('id_user'));
+    } else {
+        // If validation passes, update user data in the database
+        $id_user = $this->input->post('id_user');
+        $data = array(
+            'username' => $this->input->post('username'),
+            'nama_perusahaan' => $this->input->post('nama_perusahaan'),
+            'nama' => $this->input->post('nama'),
+            'alamat' => $this->input->post('alamat'),
+            'email' => $this->input->post('email'),
+            'no_telp' => $this->input->post('no_telp'),
+            'no_wa' => $this->input->post('no_wa'),
+            'role' => $this->input->post('role')
+        );
+
+        // Update user data in the database
+        if ($this->admin->updateUser($id_user, $data)) {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success">Data berhasil diubah.</div>');
         } else {
-            // If validation passes, update user data in the database
-            $id_user = $this->input->post('id_user');
-            $data = array(
-                'username' => $this->input->post('username'),
-                'nama' => $this->input->post('nama'),
-                'email' => $this->input->post('email'),
-                'no_telp' => $this->input->post('no_telp'),
-                'role' => $this->input->post('role')
-            );
-            $this->Admin_model->updateUser($id_user, $data);
-            // Redirect to user list or show success message
-            redirect('user/edit/' . $id_user);
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger">Data gagal diubah.</div>');
         }
+
+        // Redirect to user list
+        redirect('user');
+    }
     }
 
     public function delete($getId)

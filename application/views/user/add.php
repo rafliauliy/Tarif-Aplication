@@ -83,6 +83,7 @@
                         <input value="<?= set_value('email'); ?>" type="text" id="email" name="email" class="form-control" autocomplete="off" placeholder="Email">
                         <?= form_error('email', '<span class="text-danger small">', '</span>'); ?>
                     </div>
+
                 </div>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="alamat">Alamat</label>
@@ -125,8 +126,8 @@
                             <label class="custom-control-label" for="admin">Admin</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input <?= set_radio('role', 'vendor'); ?> value="vendor" type="radio" id="vendor" autocomplete="off" name="role" class="custom-control-input">
-                            <label class="custom-control-label" for="vendor">Vendor</label>
+                            <input <?= set_radio('role', 'employe'); ?> value="employe" type="radio" id="employe" autocomplete="off" name="role" class="custom-control-input">
+                            <label class="custom-control-label" for="employe">Employe</label>
                         </div>
                         <?= form_error('role', '<span class="text-danger small">', '</span>'); ?>
                     </div>
@@ -150,3 +151,5 @@
         </div>
     </div>
 </div>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

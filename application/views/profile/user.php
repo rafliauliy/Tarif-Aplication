@@ -4,11 +4,6 @@
             <?= userdata('nama'); ?>
         </h4>
     </div>
-    <div class="card-footer bg-white">
-        <a href="<?= base_url('barang') ?>" class="btn btn-success">
-            <i class="fas fa-arrow-left"></i> Kembali ke Menu
-        </a>
-    </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-2 mb-4 mb-md-0">
@@ -55,3 +50,5 @@
         </div>
     </div>
 </div>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
