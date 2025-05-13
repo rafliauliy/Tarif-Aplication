@@ -1,21 +1,27 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# Aplikasi Pengadaan Barang<br/>
-## Free Source Code<br/>
+# 💰 Tarif Application
 
-### Aplikasi ini dibuat menggunakan
-- Codeigniter 3
-- Bootstrap 4
-- SB Admin 2 Template
-- Datatables
-- Chart.js
+**Tarif Application** adalah aplikasi internal yang dikembangkan oleh **PT Krakatau Argo Logistics** untuk mengelola informasi tarif angkutan logistik dan jasa terkait. Aplikasi ini dirancang untuk mendukung tim marketing dan operasional dalam menyusun serta mengakses data tarif secara terstruktur dan mudah digunakan.
 
-### Keterangan <br/>
-Database : <code>ci_barang</code><br/>
-<br/>
-=======
-# proof-of-document-receipt-with-ci3
->>>>>>> 253f95ab9cc659215a4073fd42b5b4ecfff62b52
-=======
-# Tarif-Aplication
->>>>>>> 6cef9938a976cefb66685675632c3ed9a809ecdf
+## 🚀 Fitur Unggulan
+
+- 📋 **Manajemen Data Tarif**
+  - Input, edit, dan hapus data tarif berdasarkan jenis layanan, rute, dan pelanggan.
+
+- 🔍 **Pencarian dan Filter**
+  - Fitur pencarian cepat berdasarkan nama pelanggan, rute, atau jenis layanan.
+
+- 🧾 **Export Data**
+  - Kemampuan untuk mencetak atau mengekspor data ke PDF atau Excel (opsional jika sudah diimplementasikan).
+
+- 🔐 **Role Akses**
+  - Sistem autentikasi dan otorisasi pengguna (jika tersedia, misalnya Admin & Marketing).
+
+## 🛠️ Teknologi yang Digunakan
+
+- PHP (CodeIgniter 3)
+- MySQL / MariaDB
+- Bootstrap
+- jQuery + DataTables
+
+## 📂 Struktur Direktori
+
